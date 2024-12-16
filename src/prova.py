@@ -1,3 +1,4 @@
+import mcpi.minecraft as minecraft
 
-def mul(x):
-    return x * 2
+mc = minecraft.Minecraft.create()
+mc.postToChat("Hola python")
