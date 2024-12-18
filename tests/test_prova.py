@@ -1,4 +1,4 @@
-from src.prova import mul
+from framework.prova import mul
 
 def test_mul():
     assert mul(5) == 10
