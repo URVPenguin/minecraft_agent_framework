@@ -35,13 +35,6 @@ jobs:
         run: |
           pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to Codecov
+        run: |
+          bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }} -C 3750097eec7e39535091aab708b20a8397587301
