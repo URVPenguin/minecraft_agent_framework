@@ -3,9 +3,9 @@
 #Raspberry Pi, Minecraft - Minecraft 'stuff' extensions
 
 try:
-    from src import mcpi as minecraft
-    from core import mcpi as util
-    from core import mcpi as block
+    import core.mcpi.minecraft as minecraft
+    import core.mcpi.block as block
+    import core.mcpi.util as util
 except ImportError:
     import minecraft
     import block

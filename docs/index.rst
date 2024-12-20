@@ -23,9 +23,9 @@ At the command line:
     pip install -r requirements.txt
 
 
-
+=======================
 Framework Documentation
-=======
+=======================
 
 .. toctree::
    :maxdepth: 2
@@ -41,6 +41,7 @@ The easiest way to get help with the project is to open an issue on Github_.
 
 .. _Github: https://github.com/URVPenguin/minecraft_agent_framework/issues
 
+============
 Contributing
 ============
 
@@ -50,6 +51,7 @@ If you'd like to contribute to the development of **Minecraft Agent Framework**,
 2. Create a branch with your proposed change.
 3. Submit a pull request.
 
+=======
 License
 =======
 

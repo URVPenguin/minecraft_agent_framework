@@ -1,8 +1,9 @@
-Packages
-========
+src
+===
 
 .. toctree::
    :maxdepth: 4
 
-   framework
-   mcpi
+   agents
+   core
+   main
