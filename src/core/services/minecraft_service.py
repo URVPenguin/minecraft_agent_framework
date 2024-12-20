@@ -1,7 +1,5 @@
 from core.di.decorators.dependency import dependency
 from core.mcpi import minecraft
-from core.mcpi.minecraft import Minecraft
-
 
 @dependency
 class MinecraftService:
@@ -20,13 +18,13 @@ class MinecraftService:
         self.port = port
         self.mc = minecraft.Minecraft.create()
 
-    def get_instance(self) -> Minecraft:
+    def get_instance(self):
         """
         Get Minecraft instance.
 
         Returns
         -------
         mc: Minecraft
-            Minecraft instance.
+            :class:`Minecraft` instance.
         """
         return self.mc

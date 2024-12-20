@@ -1,6 +1,3 @@
-from typing import Type, Optional
-
-
 class DependencyContainer:
     """"
     Global Dependency Container
@@ -13,7 +10,7 @@ class DependencyContainer:
             cls._instance._registrations = {}
         return cls._instance
 
-    def register(self, cls: Type, instance: Optional[object] = None):
+    def register(self, cls, instance = None):
         """
         Registers a class into container.
 
@@ -27,19 +24,19 @@ class DependencyContainer:
         else:
             self._registrations[cls] = cls
 
-    def resolve(self, cls: Type):
+    def resolve(self, cls):
         """
         Resolves a registered dependency.
 
         Parameters
         ----------
-        cls : Type
+        cls : class
             Class to resolve.
 
         Returns
         -------
-        resolved : Type
-            instance of the resolved class.
+        resolved : class
+            Instance of the resolved class.
         """
         if cls not in self._registrations:
             raise ValueError(f"Dependency not found: {cls}")

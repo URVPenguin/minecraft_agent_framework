@@ -1,18 +1,17 @@
-from typing import Type
 from core.di.container import DependencyContainer
 
-def dependency(cls: Type) -> Type:
+def dependency(cls):
     """
     Decorator to register classes can be injected as a dependency.
 
     Parameters
     ----------
-    cls : Type
+    cls : class
         Decorated class.
 
     Returns
     -------
-    cls: Type
+    cls: class
     """
     DependencyContainer().register(cls)
     return cls

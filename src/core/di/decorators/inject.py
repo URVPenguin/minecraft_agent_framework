@@ -1,6 +1,6 @@
 from core.di.injected_dependency import InjectedDependency
 
-def inject(dependency_type) -> InjectedDependency:
+def inject(dependency_type):
     """
     Decorator to register classes can be injected as a dependency.
 
