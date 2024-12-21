@@ -14,9 +14,13 @@ class MinecraftService:
         return cls._instance
 
     def __init__(self, host = "localhost", port = 4711):
-        self.host = host
-        self.port = port
-        self.mc = minecraft.Minecraft.create()
+        if not hasattr(self, 'mc'):
+            self.host = host
+            self.port = port
+            try:
+                self.mc = minecraft.Minecraft.create()
+            except ConnectionError as ce:
+                exit("Could not connect to Minecraft. Error: " + ce.strerror)
 
     def get_instance(self):
         """
