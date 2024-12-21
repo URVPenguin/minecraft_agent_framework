@@ -1,5 +1,9 @@
 import pytest
 from core.di.container import DependencyContainer
+from core.di.injectable import Injectable
+from core.di.injected_dependency import InjectedDependency
+from core.di.decorators.dependency import dependency
+from core.di.decorators.inject import inject
 
 container = DependencyContainer()
 
@@ -79,3 +83,31 @@ def test_singleton_behavior():
     resolved2 = container.resolve(Singleton)
 
     assert resolved1 is resolved2, "Should return same instance (singleton)"
+
+
+def test_injected_dependency():
+    container._registrations = {}
+    id = InjectedDependency(TestClass)
+    assert id.dependency_type == TestClass, "Should be equals to TestClass"
+
+def test_inject():
+    container._registrations = {}
+    @dependency
+    class Dependency:
+        pass
+
+    class TestClass2:
+        dep: Dependency = inject(Dependency)
+
+    assert isinstance(TestClass2().dep, InjectedDependency), "Should be an instance of InjectedDependency"
+
+def test_injectable():
+    container._registrations = {}
+    @dependency
+    class Dependency:
+        pass
+
+    class TestClass2(Injectable):
+        dep: Dependency = inject(Dependency)
+
+    assert isinstance(TestClass2().dep, Dependency), "Should be an instance of InjectedDependency"
