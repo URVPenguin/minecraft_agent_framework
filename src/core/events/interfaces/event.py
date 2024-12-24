@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 from core.events.interfaces.event_handler import EventHandler
+from core.agent import Agent
 
 class EventType(Enum):
     BLOCK_HIT = "BLOCK_HIT"
@@ -15,6 +16,7 @@ class Event(ABC):
     def get_type(self):
         """
         Returns the type of the event.
+
         Returns
         -------
         EventType
@@ -25,6 +27,7 @@ class Event(ABC):
     def get_entity_id(self):
         """
         Returns the entity id of the event.
+
         Returns
         -------
         int
@@ -32,12 +35,24 @@ class Event(ABC):
         pass
 
     @abstractmethod
-    def accept(self, handler: EventHandler):
+    def get_data(self):
+        """
+        Returns the event data.
+
+        Returns
+        -------
+        Any
+        """
+        pass
+
+    @abstractmethod
+    def accept(self, handler: EventHandler, agent):
         """
         Method to accept a handler that process an event.
 
         Parameters
         ----------
+        agent : Agent
         handler : EventHandler
         """
         pass

@@ -1,6 +1,7 @@
 from core.di.decorators.dependency import dependency
 from core.events.interfaces.event import Event
 from core.events.interfaces.event_handler import EventHandler
+from core.agent import Agent
 
 @dependency
 class EventDispatcher:
@@ -16,17 +17,18 @@ class EventDispatcher:
 
     def __init__(self):
         if not hasattr(self, "handlers"):
-            self.handlers = []
+            self.handlers = {}
 
-    def register(self, handler: EventHandler):
+    def register(self, handler: EventHandler, agent):
         """
         Register an event handler with this dispatcher.
 
         Parameters
         ----------
+        agent : Agent
         handler: EventHandler
         """
-        self.handlers.append(handler)
+        self.handlers[agent] = handler
 
     def dispatch(self, event: Event):
         """
@@ -36,5 +38,5 @@ class EventDispatcher:
         ----------
         event: Event
         """
-        for handler in self.handlers:
-            event.accept(handler)
+        for agent, handler in self.handlers.items():
+            event.accept(handler, agent)

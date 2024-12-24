@@ -1,6 +1,6 @@
 from core.events.interfaces.event import Event, EventType
 from core.events.interfaces.event_handler import EventHandler
-
+from core.agent import Agent
 
 class ChatEventAdapter(Event):
     """
@@ -28,12 +28,22 @@ class ChatEventAdapter(Event):
         """
         return self.minecraft_event.entityId
 
-    def accept(self, handler: EventHandler):
+    def get_data(self):
+        """
+        Returns the message.
+        Returns
+        -------
+        string
+        """
+        return self.minecraft_event.message
+
+    def accept(self, handler: EventHandler, agent: Agent):
         """
         Method for calling event handler of the client
 
         Parameters
         ----------
+        agent: Agent
         handler: EventHandler
         """
-        handler.handle_chat_event(self.minecraft_event)
+        handler.handle_chat_event(self, agent)
