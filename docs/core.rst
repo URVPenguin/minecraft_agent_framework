@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    core.di
+   core.events
    core.mcpi
    core.services
 

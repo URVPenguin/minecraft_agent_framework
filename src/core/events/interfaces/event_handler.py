@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
 class EventHandler(ABC):
+    """
+    Interface for event handlers.
+    """
     @abstractmethod
     def handle_block_event(self, event):
         """

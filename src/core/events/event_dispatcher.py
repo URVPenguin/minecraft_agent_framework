@@ -4,6 +4,9 @@ from core.events.interfaces.event_handler import EventHandler
 
 @dependency
 class EventDispatcher:
+    """
+    This class is responsible for dispatching events to specific handlers.
+    """
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -16,8 +19,22 @@ class EventDispatcher:
             self.handlers = []
 
     def register(self, handler: EventHandler):
+        """
+        Register an event handler with this dispatcher.
+
+        Parameters
+        ----------
+        handler: EventHandler
+        """
         self.handlers.append(handler)
 
     def dispatch(self, event: Event):
+        """
+        Dispatch an event in broadcast.
+
+        Parameters
+        ----------
+        event: Event
+        """
         for handler in self.handlers:
             event.accept(handler)
