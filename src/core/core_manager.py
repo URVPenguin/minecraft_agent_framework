@@ -4,11 +4,13 @@ from core.di.injectable import Injectable
 from core.events.block_event_adapter import BlockEventAdapter
 from core.events.chat_event_adapter import ChatEventAdapter
 from core.events.event_dispatcher import EventDispatcher
+from core.services.command.command_service import CommandService
 from core.services.minecraft_service import MinecraftService
 
 class CoreManager(Injectable):
     _ms: MinecraftService = inject(MinecraftService)
     _dispatcher: EventDispatcher = inject(EventDispatcher)
+    _command_service: CommandService = inject(CommandService)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,4 +48,6 @@ class CoreManager(Injectable):
 
             chat_posts = mc.events.pollChatPosts()
             for post in chat_posts:
-                self._dispatcher.dispatch(ChatEventAdapter(post))
+                event = ChatEventAdapter(post)
+                if not self._command_service.process_command(event):
+                    self._dispatcher.dispatch(event)

@@ -32,3 +32,9 @@ class MinecraftService:
             :class:`Minecraft` instance.
         """
         return self.mc
+
+    def close(self):
+        """
+        Close Minecraft connection.
+        """
+        self.mc.conn.socket.close()

@@ -27,3 +27,15 @@ class EventHandler(ABC):
         event: ChatEventAdapter
         """
         pass
+
+    @abstractmethod
+    def handle_command_event(self, event, agent):
+        """
+        Manage a CommandEvent type
+
+        Parameters
+        ----------
+        agent: Agent
+        event: CommandEvent
+        """
+        pass

@@ -6,7 +6,7 @@ from core.agent import Agent
 class EventType(Enum):
     BLOCK_HIT = "BLOCK_HIT"
     CHAT_POST = "CHAT_POST"
-
+    COMMAND = "COMMAND"
 
 class Event(ABC):
     """

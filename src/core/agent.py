@@ -3,6 +3,7 @@ from core.di.decorators.inject import inject
 from core.di.injectable import Injectable
 from core.events.interfaces.event_handler import EventHandler
 from core.mcpi import block
+from core.services.command.interfaces.command import Command
 from core.services.minecraft_service import MinecraftService
 
 class Agent(Injectable):
@@ -13,6 +14,7 @@ class Agent(Injectable):
         self.name = name
         self.action = action
         self.event_handler = event_handler
+        self.commands = {}
         self.mc = self._ms.get_instance()
         self.pos = self.mc.player.getTilePos()
         self.mc.postToChat(f"Bot {name} created")
@@ -30,6 +32,14 @@ class Agent(Injectable):
             "water": block.WATER,
             "grass": block.GRASS,
         }
+
+    def register_command(self, command_name: str, command : Command):
+        self.commands[command_name] = command
+
+    def handle_command(self, command, *args, **kwargs):
+        command = self.commands.get(command)
+        if command:
+            command.execute(self, *args, **kwargs)
 
     def run(self):
         self.action.execute(self)

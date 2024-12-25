@@ -6,6 +6,7 @@ from core.agent import Agent
 from core.di.container import DependencyContainer
 from core.events.block_event_adapter import BlockEventAdapter, Vec
 from core.events.chat_event_adapter import ChatEventAdapter
+from core.events.comand_event import CommandEvent
 from core.events.event_dispatcher import EventDispatcher
 from core.events.interfaces.event import EventType, Event
 from core.events.interfaces.event_handler import EventHandler
@@ -19,6 +20,10 @@ class CustomEventHandler(EventHandler):
 
     def handle_chat_event(self, event, agent):
         print(f"ChatEventHandler: Entity: {event.get_entity_id()} says '{event.get_data()}'")
+
+    def handle_command_event(self, event, agent):
+        print(f"ChatEventHandler: Entity: {event.get_entity_id()} says '{event.get_data()}'")
+
 
 class PlaceBlockAction(Action):
     def execute(self, agent: Agent):
@@ -60,6 +65,11 @@ def test_event_adapters():
     assert chat_event.get_entity_id() == 2
     assert chat_event.get_data() == "Hello World"
 
+    command_event = CommandEvent(1, "@dfasd", [], {})
+    assert command_event.get_type() == EventType.COMMAND
+    assert command_event.get_entity_id() == 1
+    assert command_event.get_data().get("command") == "@dfasd"
+
 def test_block_event_handling(mocker, mock_minecraft_service, configure_dependencies):
     dispatcher = EventDispatcher()
     handler = CustomEventHandler()
@@ -84,3 +94,16 @@ def test_chat_event_handling(mocker,  mock_minecraft_service, configure_dependen
     event = ChatEventAdapter(chat_event)
     dispatcher.dispatch(event)
     mock_handle.assert_called_once_with(event, agent)
+
+def test_command_event_handling(mocker,  mock_minecraft_service, configure_dependencies):
+    dispatcher = EventDispatcher()
+
+    handler = CustomEventHandler()
+    agent = Agent("Test", PlaceBlockAction(), handler)
+    dispatcher.register(handler,  agent)
+
+    mock_handle = mocker.patch.object(handler, 'handle_command_event')
+
+    command_event = CommandEvent("@command", [], {})
+    dispatcher.dispatch(command_event)
+    mock_handle.assert_called_once_with(command_event, agent)
