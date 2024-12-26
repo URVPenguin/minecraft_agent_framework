@@ -28,7 +28,7 @@ class BlockManager(Injectable):
         if block_type in blocks:
             self.mc.setBlock(x, y, z, blocks[block_type])
         else:
-            ArgumentError(block_type, "Unknown block type")
+            raise ArgumentError(None, message="Unknown block type")
 
     def destroy_block(self, x, y, z):
         self.mc.setBlock(x, y, z, blocks["air"])

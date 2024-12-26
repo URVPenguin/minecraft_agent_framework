@@ -7,6 +7,7 @@ from core.di.container import DependencyContainer
 from core.events.block_event_adapter import BlockEventAdapter, Vec
 from core.events.chat_event_adapter import ChatEventAdapter
 from core.events.comand_event import CommandEvent
+from core.events.default_event_handler import DefaultEventHandler
 from core.events.event_dispatcher import EventDispatcher
 from core.events.interfaces.event import EventType, Event
 from core.events.interfaces.event_handler import EventHandler
@@ -107,3 +108,23 @@ def test_command_event_handling(mocker,  mock_minecraft_service, configure_depen
     command_event = CommandEvent(1, "@command", [], {})
     dispatcher.dispatch(command_event)
     mock_handle.assert_called_once_with(command_event, agent)
+
+def test_default_handle_block_event():
+    mock_event = MagicMock()
+    mock_agent = MagicMock()
+    handler = DefaultEventHandler()
+    handler.handle_block_event(mock_event, mock_agent)
+
+def test_default_handle_chat_event():
+    mock_event = MagicMock()
+    mock_agent = MagicMock()
+    handler = DefaultEventHandler()
+    handler.handle_chat_event(mock_event, mock_agent)
+
+def test_default_handle_command_event():
+    mock_event = MagicMock()
+    mock_agent = MagicMock()
+    mock_event.get_data.return_value = {"command": "test_command", "args": [1, 2], "kwargs": {"key": "value"}}
+    handler = DefaultEventHandler()
+    handler.handle_command_event(mock_event, mock_agent)
+    mock_agent.handle_command.assert_called_once_with("test_command", [1, 2], {"key": "value"})

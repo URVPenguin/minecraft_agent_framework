@@ -20,7 +20,7 @@ class MinecraftService:
             try:
                 self.mc = minecraft.Minecraft.create()
             except ConnectionError as ce:
-                exit("Could not connect to Minecraft. Error: " + ce.strerror)
+                exit("Could not connect to Minecraft. Error: " + str(ce))
 
     def get_instance(self):
         """
