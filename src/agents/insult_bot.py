@@ -30,7 +30,7 @@ insults = [
 class InsultAction(Action):
     def execute(self, agent: Agent):
         random_index = random.randint(0, len(insults) - 1)
-        agent.message(insults[random_index])
+        agent.minecraft.send_message(insults[random_index])
 
 class CustomEventHandler(DefaultEventHandler):
     def handle_chat_event(self, event: ChatEventAdapter, agent: Agent):

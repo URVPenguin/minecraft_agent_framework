@@ -5,8 +5,9 @@ from core.services.command.interfaces.command import Command
 
 class DetonateAction(Action):
     def execute(self, agent: Agent):
-        agent.place_block("tnt", 1, 0, 0)
-        agent.place_block("fire", 1, 1, 0)
+        x,y,z = agent.minecraft.player.get_position()
+        agent.minecraft.blocks.place_block("tnt", x+1, y, z)
+        agent.minecraft.blocks.place_block("fire", x+1, y+1, z)
 
 class TNTCommand(Command):
     def execute(self, agent, args, kwargs):
