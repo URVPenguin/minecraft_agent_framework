@@ -30,6 +30,7 @@ class AgentLoaderService(Injectable):
             except ModuleNotFoundError:
                 print(f"Module {module_path} not found.")
 
-        list(map(lambda agent: self._dispatcher.register(agent.event_handler, agent), self.agents))
+        list(map(lambda agent: self._dispatcher.register(agent.event_handler, agent)
+        if agent.event_handler is not None else None, self.agents))
 
         return self.agents

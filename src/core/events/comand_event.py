@@ -6,7 +6,7 @@ class CommandEvent(Event):
     """
     Event class to notify commands
     """
-    def __init__(self, entity_id, command, *args, **kwargs):
+    def __init__(self, entity_id, command, args, kwargs):
         super().__init__()
         self.command = command
         self.args = args

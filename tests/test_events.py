@@ -104,6 +104,6 @@ def test_command_event_handling(mocker,  mock_minecraft_service, configure_depen
 
     mock_handle = mocker.patch.object(handler, 'handle_command_event')
 
-    command_event = CommandEvent("@command", [], {})
+    command_event = CommandEvent(1, "@command", [], {})
     dispatcher.dispatch(command_event)
     mock_handle.assert_called_once_with(command_event, agent)

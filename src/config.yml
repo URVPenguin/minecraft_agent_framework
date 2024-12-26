@@ -1,2 +1,4 @@
 agents:
-  custom_bot: "agents.custom_bot"
+  insult_bot: "agents.insult_bot"
+  tnt_bot: "agents.tnt_bot"
+  chat_bot: "agents.chat_bot"
