@@ -9,11 +9,28 @@ Subpackages
 
    core.di
    core.events
+   core.facade
    core.mcpi
    core.services
 
 Submodules
 ----------
+
+core.action module
+------------------
+
+.. automodule:: core.action
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+core.agent module
+-----------------
+
+.. automodule:: core.agent
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 core.core\_manager module
 -------------------------

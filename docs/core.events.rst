@@ -28,6 +28,22 @@ core.events.chat\_event\_adapter module
    :undoc-members:
    :show-inheritance:
 
+core.events.comand\_event module
+--------------------------------
+
+.. automodule:: core.events.comand_event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+core.events.default\_event\_handler module
+------------------------------------------
+
+.. automodule:: core.events.default_event_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 core.events.event\_dispatcher module
 ------------------------------------
 
