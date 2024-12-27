@@ -8,6 +8,9 @@ from core.services.command.command_service import CommandService
 from core.services.minecraft_service import MinecraftService
 
 class CoreManager(Injectable):
+    """
+    Runs the framework and manages its agents
+    """
     _ms: MinecraftService = inject(MinecraftService)
     _dispatcher: EventDispatcher = inject(EventDispatcher)
     _command_service: CommandService = inject(CommandService)
@@ -20,6 +23,9 @@ class CoreManager(Injectable):
         self.mc = self._ms.get_instance()
 
     def listen(self):
+        """
+        It is responsible for listening to Minecraft and dispatching events that the agents will receive.
+        """
         while True:
             block_hits = self.mc.events.pollBlockHits()
             for hit in block_hits:

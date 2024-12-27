@@ -9,6 +9,9 @@ from core.events.event_dispatcher import EventDispatcher
 
 @dependency
 class AgentLoaderService(Injectable):
+    """
+    Dynamically load agents (bots) into the framework
+    """
     _dispatcher: EventDispatcher = inject(EventDispatcher)
 
     def __init__(self):
@@ -16,6 +19,17 @@ class AgentLoaderService(Injectable):
         self.agents = []
 
     def load_agents(self, file_path="src/config.yml"):
+        """
+        Loads a list of agents registered in a config.yml, and returns a list of all instances.
+
+        Parameters
+        ----------
+        file_path : str, optional
+
+        Returns
+        -------
+        agents : list
+        """
         base_dir = Path(__file__).resolve().parent.parent.parent.parent
         config_path = base_dir / file_path
 

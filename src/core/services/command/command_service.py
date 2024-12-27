@@ -9,6 +9,17 @@ from functools import reduce
 import sys
 
 def parse_command(input_string):
+    """
+    Detects the command (starts with @) and separates it from the arguments if there are any.
+
+    Parameters
+    ----------
+    input_string : string
+
+    Returns
+    -------
+    command, arguments : string
+    """
     parts = input_string.split()
     command = parts[0] if parts and parts[0].startswith('@') else None
     arguments = parts[1:] if len(parts) > 1 else []
@@ -16,6 +27,18 @@ def parse_command(input_string):
 
 
 def parse_arguments(arguments):
+    """
+    Parses arguments into args, kwargs format
+
+    Parameters
+    ----------
+    arguments : string
+
+    Returns
+    -------
+    arguments
+        Returns args, kwargs
+    """
     return reduce(
         lambda acc, arg: (
             (acc[0], {**acc[1], **{arg.split('=')[0]: arg.split('=')[1]}})
@@ -27,6 +50,9 @@ def parse_arguments(arguments):
 
 @dependency
 class CommandService(Injectable):
+    """
+    Service to process commands entered by users, and to launch an event if it is a valid command.
+    """
     _ms: MinecraftService = inject(MinecraftService)
     _dispatcher: EventDispatcher = inject(EventDispatcher)
 
@@ -34,6 +60,18 @@ class CommandService(Injectable):
         super().__init__()
 
     def process_command(self, event: ChatEventAdapter):
+        """
+        Given a string, it determines if it is a command and if it is, it raises an event with it, so that listeners can act according to the event.
+
+        Parameters
+        ----------
+        event : ChatEventAdapter
+
+        Returns
+        -------
+        command : bool
+            Indicates whether the processed command was a command or not.
+        """
         command, arguments = parse_command(event.get_data())
         args, kwargs = parse_arguments(arguments)
 

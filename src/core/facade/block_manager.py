@@ -7,38 +7,74 @@ from core.services.minecraft_service import MinecraftService
 
 
 class BlockManager(Injectable):
-
+    """
+    Manages the methods associated with blocks within the world of Minecraft.
+    """
     _ms: MinecraftService = inject(MinecraftService)
 
     def __init__(self):
         super().__init__()
         self.mc = self._ms.get_instance()
 
-    def place_block(self, block_type, x, y, z):
+    def place_block(self, block_type : str, x : int, y : int, z : int):
         """
-        Puts a block in a place
+        Puts a block in a place, if block_type not exists, raise ArgumentError.
 
         Parameters
         ----------
-        block_type
-        x
-        y
-        z
+        block_type : string
+        x : int
+        y : int
+        z : int
         """
         if block_type in blocks:
             self.mc.setBlock(x, y, z, blocks[block_type])
         else:
             raise ArgumentError(None, message="Unknown block type")
 
-    def destroy_block(self, x, y, z):
+    def destroy_block(self, x : int, y : int, z : int):
+        """
+        Place an air block in a specific position.
+
+        Parameters
+        ----------
+        x : int
+        y : int
+        z : int
+        """
         self.mc.setBlock(x, y, z, blocks["air"])
 
-    def get_block(self, x, y, z):
-        """Get block (x,y,z) => id:int"""
-        self.mc.getBlock(x, y, z)
+    def get_block(self, x : int, y : int, z : int):
+        """
+        Get block (x,y,z)
+
+        Parameters
+        ----------
+        x : int
+        y : int
+        z : int
+
+        Returns
+        -------
+        id : int
+        """
+        """"""
+        return self.mc.getBlock(x, y, z)
 
     def get_block_data(self, x, y, z):
-        """Get block with data (x,y,z) => {id, data}"""
+        """
+        Get block data (x,y,z)
+
+        Parameters
+        ----------
+        x : int
+        y : int
+        z : int
+
+        Returns
+        -------
+        {id : int, data: int}
+        """
         bl = self.mc.getBlockWithData(x, y, z)
         return {'id': bl.id, 'data': bl}
 
